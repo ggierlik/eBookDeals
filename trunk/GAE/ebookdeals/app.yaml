@@ -1,0 +1,25 @@
+application: ebook-deals
+version: 1
+runtime: python
+api_version: 1
+ 
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+  
+- url: /tasks/_updatefeeds
+  script: tasks/updatefeeds.py
+#  login: admin
+  
+- url: /get_deals
+  script: deals_json.py
+
+- url: /deals
+  script: deals_html.py
+  
+- url: /.*
+  script: deals_html.py
