@@ -13,10 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,6 +27,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class BookDeals extends ListActivity {
+	private PendingIntent alarmSender;
+	
 	private List<Book> books = new ArrayList<Book>();
 	private ArrayBookAdapter arrayBookAdapter;
 
@@ -57,6 +62,11 @@ public class BookDeals extends ListActivity {
 				"$9.99 eBook Deal of the Day :: Programming in Objective-C 2.0, 2nd Edition by Stephen G. Kochan",
 				"http://www.informit.com/deals/"));
 		*/
+		
+		alarmSender = PendingIntent.getService(BookDeals.this, 0, new Intent(BookDeals.this, FeedUpdaterService.class), 0);
+		AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+		am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 30*1000, alarmSender);
+		
 		if (loadBooks()) {
 			arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item, books);
 		}

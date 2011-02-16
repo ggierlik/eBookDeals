@@ -2,4 +2,7 @@
 <resources>
     <string name="hello">Hello World, BookDeals!</string>
     <string name="app_name">eBookDeals</string>
+<string name="feed_updater_started">Sync started</string>
+<string name="feed_updater_finished">Sync finished</string>
+<string name="feed_updater_label">Sync</string>
 </resources>
