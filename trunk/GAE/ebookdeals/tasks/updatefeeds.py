@@ -21,7 +21,13 @@ INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
 def get_oreilly_rss_feed(publisher, url):
 
     f = feedparser.parse(url)
-    return book.get_book(publisher, f.entries[0].title , f.entries[0].summary, f.entries[0].link)
+    print "PARSED"
+
+    print "title: %s" % (f.entries[0].title,)
+#    print "summary: %s" % (f.entries[0].summary,)
+    print "link: %s" % (f.entries[0].link,)
+
+    return book.get_book(publisher, f.entries[0].title , f.entries[0].title, f.entries[0].link)
 
 
 def get_apress_rss_feed():
@@ -40,9 +46,14 @@ def get_manning_rss_feed():
 
     print "items: %d" % (len(f.entries), )
 
+    j = 1
+
     for item in f.entries:
+        print "%d" % (j,)
+        print "title: %s" % (item.title,)
+
         title = item.title
-        print "title: %s" % (title, )
+
         i = title.find('Use code dotd')
         print "i: %d" % (i, )
         if i > 0:
@@ -92,7 +103,10 @@ try:
     print "BEGIN MSPRESS"
 
     ebook = get_oreilly_rss_feed('Microsoft Press', MS_FEED_RSS)
-    ebook.put()
+
+    if ebook is not None:
+        ebook.put()
+
 
     print "MSPRESS OK"
 except:
@@ -102,7 +116,9 @@ try:
     print "BEGIN APRESS"
 
     ebook = get_apress_rss_feed()
-    ebook.put()
+
+    if ebook is not None:
+        ebook.put()
 
     print "APRESS OK"
 except:
@@ -112,7 +128,9 @@ try:
     print "BEGIN MANNING"
 
     ebook = get_manning_rss_feed()
-    ebook.put()
+
+    if ebook is not None:
+        ebook.put()
 
     print "MANNING OK"
 except:
@@ -121,7 +139,9 @@ except:
 try:
     print "BEGIN INFORMIT"
     ebook = get_informit_rss_feed()
-    ebook.put()
+
+    if ebook is not None:
+        ebook.put()
 
     print "INFORMIT OK"
 except:

@@ -38,8 +38,16 @@ h1.header {
 	font-weight: normal;
 	line-height: 1.4;
 	text-align: center;
+/*	display: inline;*/
 }
-
+/*
+img.logo {
+	width: 36px;
+	height: 36px;
+	vertical-align: text-bottom;
+	padding: 0 1em;
+}
+*/
 h2.sorry {
 	font-weight: normal;
 	line-height: 1.4;
