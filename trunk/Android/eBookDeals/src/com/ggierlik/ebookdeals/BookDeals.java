@@ -63,6 +63,7 @@ public class BookDeals extends ListActivity {
 				"http://www.informit.com/deals/"));
 		*/
 		
+		// set alarm to call deal feed update as service
 		alarmSender = PendingIntent.getService(BookDeals.this, 0, new Intent(BookDeals.this, FeedUpdaterService.class), 0);
 		AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
 		am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 30*1000, alarmSender);
@@ -71,7 +72,6 @@ public class BookDeals extends ListActivity {
 			arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item, books);
 		}
 		
-		
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(false);
 		lv.setAdapter(arrayBookAdapter);
@@ -79,14 +79,13 @@ public class BookDeals extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				//Toast.makeText(getApplicationContext(), position + "/" + id, Toast.LENGTH_SHORT).show();
+
 				Uri uri;
 				try {
 					uri = Uri.parse(books.get(position).url);
 					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
 					startActivity(intent);
-
 					
 				}
 				catch (Exception ex) {

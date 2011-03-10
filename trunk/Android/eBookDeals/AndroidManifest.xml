@@ -12,7 +12,11 @@
             </intent-filter>
         </activity>
         <service android:name="FeedUpdater" />
-        <receiver android:process=":remote" android:name="AlarmReceiver" />
+        <receiver android:name="AlarmReceiver">
+        	<intent-filter>
+        		<action android:name="com.ggierlik.ebookdeals.REFRESH_ALARM" />
+        	</intent-filter>
+        </receiver>
 
     </application>
 
