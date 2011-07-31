@@ -3,6 +3,9 @@ version: 1
 runtime: python
 api_version: 1
  
+inbound_services:
+- mail
+
 handlers:
 - url: /stylesheets
   static_dir: stylesheets
@@ -23,6 +26,16 @@ handlers:
 
 - url: /deals
   script: deals_html.py
-  
+ 
+- url: /_ah/mail/manning\@ebook-deals\.appspotmail\.com
+  script: handle_incoming_manning.py
+#  login: admin
+
+- url: /_ah/mail/.+
+  script: handle_incoming_others.py
+#  login: admin 
+
 - url: /.*
   script: deals_html.py
+  
+
