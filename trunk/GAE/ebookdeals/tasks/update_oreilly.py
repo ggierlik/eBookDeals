@@ -1,3 +1,4 @@
+import logging
 import urllib
 from xml.etree.ElementTree import parse
 import feedparser
@@ -17,28 +18,28 @@ def get_oreilly_rss_feed(publisher, url):
 
 try:
     publisher = 'O''Reilly Media'
-    print "BEGIN O'REILLY"
+    logging.info("BEGIN O'REILLY")
 
     ebook = get_oreilly_rss_feed(publisher, OREILLY_FEED_RSS)
     ebook.put()
 
-    print "O'REILLY OK"
+    logging.info("O'REILLY OK")
 
     update(publisher, true)
 except:
-    print "O'REILLY ERROR:", sys.exc_info()[0]
+    logging.exception("O'REILLY ERROR:", sys.exc_info()[0])
     update(publisher, false)
 
 try:
     publisher = 'Microsoft Press'
-    print "BEGIN MSPRESS"
+    logging.info("BEGIN MSPRESS")
 
     ebook = get_oreilly_rss_feed(publisher, MS_FEED_RSS)
     ebook.put()
 
-    print "MSPRESS OK"
+    logging.info("MSPRESS OK")
 
     update(publisher, true)
 except:
-    print "MSPRESS ERROR:", sys.exc_info()[0]
+    logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
     update(publisher, false)

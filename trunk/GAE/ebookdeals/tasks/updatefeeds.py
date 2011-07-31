@@ -1,3 +1,4 @@
+import logging
 import urllib
 from xml.etree.ElementTree import parse
 import feedparser
@@ -10,8 +11,9 @@ import update
 
 #TODO: move function to class
 #TODO: move every publisher to separate cron task
-
+#TODO: refactor these functions (i.e. logging statements)
 #TODO: it would be nice to have dictonary here
+
 OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
 MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
 APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
@@ -20,12 +22,13 @@ INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
 
 def get_oreilly_rss_feed(publisher, url):
 
+    logging.info("parsing %s", publisher)
     f = feedparser.parse(url)
-    print "PARSED"
+    logging.info("PARSED")
 
-    print "title: %s" % (f.entries[0].title,)
+    logging.info("title: %s" % (f.entries[0].title,))
 #    print "summary: %s" % (f.entries[0].summary,)
-    print "link: %s" % (f.entries[0].link,)
+    logging.info("link: %s" % (f.entries[0].link,))
 
     return book.get_book(publisher, f.entries[0].title , f.entries[0].title, f.entries[0].link)
 
@@ -33,10 +36,15 @@ def get_oreilly_rss_feed(publisher, url):
 def get_apress_rss_feed():
     publisher = 'Apress'
 
+    logging.info("parssing %s", publisher)
+
     f = feedparser.parse(APRESS_FEED_RSS)
+
+    logging.info("PARSED")
+
     return book.get_book(publisher, f.entries[0].title, f.entries[0].summary, 'http://apress.com/info/dailydeal')
 
-
+"""
 def get_manning_rss_feed():
     publisher = 'Manning Books'
 
@@ -65,11 +73,17 @@ def get_manning_rss_feed():
             link = title[i+1:j]
             print "link: %s %d %d" % (link, i, j)
             return book.get_book(publisher, title, item.summary, link)
+"""
 
 def get_informit_rss_feed():
     publisher = "informIT"
 
+    logging.info("parssing %s", publisher)
+
     f = feedparser.parse(INFORMIT_FEED_RSS)
+
+    logging.info("PARSED")
+
     return book.get_book(publisher, f.entries[0].title, f.entries[0].title_detail.value, f.entries[0].link)
 
 
@@ -90,17 +104,17 @@ def get_informit_rss_feed():
 update.update("ALL", True)
 
 try:
-    print "BEGIN O'REILLY"
+    #print "BEGIN O'REILLY"
 
-    ebook = get_oreilly_rss_feed('O''Reilly Media', OREILLY_FEED_RSS)
+    ebook = get_oreilly_rss_feed('O\'Reilly Media', OREILLY_FEED_RSS)
     ebook.put()
 
-    print "O'REILLY OK"
+    #print "O'REILLY OK"
 except:
-    print "O'REILLY ERROR:", sys.exc_info()[0]
+    logging.exception("O'REILLY ERROR:", sys.exc_info()[0])
 
 try:
-    print "BEGIN MSPRESS"
+    #print "BEGIN MSPRESS"
 
     ebook = get_oreilly_rss_feed('Microsoft Press', MS_FEED_RSS)
 
@@ -108,22 +122,23 @@ try:
         ebook.put()
 
 
-    print "MSPRESS OK"
+    #print "MSPRESS OK"
 except:
-    print "MSPRESS ERROR:", sys.exc_info()[0]
+    logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
 
 try:
-    print "BEGIN APRESS"
+    #print "BEGIN APRESS"
 
     ebook = get_apress_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-    print "APRESS OK"
+    #print "APRESS OK"
 except:
-    print "APRESS ERROR:", sys.exc_info()[0]
+    logging.exception("APRESS ERROR:", sys.exc_info()[0])
 
+"""
 try:
     print "BEGIN MANNING"
 
@@ -135,17 +150,18 @@ try:
     print "MANNING OK"
 except:
     print "MANNING ERROR:", sys.exc_info()[0]
+"""
 
 try:
-    print "BEGIN INFORMIT"
+    #print "BEGIN INFORMIT"
     ebook = get_informit_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-    print "INFORMIT OK"
+    #print "INFORMIT OK"
 except:
-    print "INFORMIT ERROR:", sys.exc_info()[0]
+    logging.exception("INFORMIT ERROR:", sys.exc_info()[0])
 
 
 #dte = datetime.date.today()

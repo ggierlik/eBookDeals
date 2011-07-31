@@ -1,3 +1,4 @@
+import logging
 import urllib
 from xml.etree.ElementTree import parse
 import feedparser
@@ -14,14 +15,14 @@ def get_apress_rss_feed():
     return book.get_book(publisher, f.entries[0].title, f.entries[0].summary, 'http://apress.com/info/dailydeal')
 
 try:
-    print "BEGIN APRESS"
+    logging.info("BEGIN APRESS")
 
     ebook = get_apress_rss_feed()
     ebook.put()
 
-    print "APRESS OK"
+    logging.info("APRESS OK")
 
     update(PUBLISHER, true)
 except:
-    print "APRESS ERROR:", sys.exc_info()[0]
+    logging.exception("APRESS ERROR:", sys.exc_info()[0])
     update(PUBLISHER, false)

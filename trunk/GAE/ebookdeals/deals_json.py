@@ -13,7 +13,7 @@ class MainPage(webapp.RequestHandler):
 
         dte, books = book.read_books()
 
-        data = {"foo": "bar"}
+        #data = {"foo": "bar"}
 
         self.response.out.write(simplejson.dumps([b.to_dict() for b in books]))
 
