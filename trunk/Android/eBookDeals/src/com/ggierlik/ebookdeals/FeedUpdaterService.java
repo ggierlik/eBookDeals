@@ -1,5 +1,6 @@
 //based on e:\android-sdk-windows\platforms\android-4\samples\ApiDemos\src\com\example\android\apis\app\AlarmService_Service.java
 
+/*
 package com.ggierlik.ebookdeals;
 
 import java.io.BufferedReader;
@@ -78,8 +79,8 @@ public class FeedUpdaterService extends Service {
 	
 	private class UpdateFeedsAsyncTask extends AsyncTask<Void, Book, Void> {
 
-		private final String PATH = "http://ebook-deals.appspot.com/get_deals";
-		//private final String PATH = "http://10.0.2.2:8080/get_deals";
+		//private final String PATH = "http://ebook-deals.appspot.com/get_deals";
+		private final String PATH = "http://10.0.2.2:8080/get_deals";
 		
 		protected Void doInBackground(Void... params) {
 			try {
@@ -192,3 +193,4 @@ public class FeedUpdaterService extends Service {
 //		alarms.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + period, AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
 //	}
 }
+*/

@@ -11,16 +11,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="FeedUpdater" />
-        <receiver android:name="AlarmReceiver">
+        <!--   service android:name="FeedUpdater" / -->
+        <!--   receiver android:name="AlarmReceiver">
         	<intent-filter>
         		<action android:name="com.ggierlik.ebookdeals.REFRESH_ALARM" />
         	</intent-filter>
-        </receiver>
+        </receiver -->
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!--  uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission -->
 </manifest> 

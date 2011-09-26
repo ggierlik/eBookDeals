@@ -3,6 +3,7 @@ package com.ggierlik.ebookdeals;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +43,12 @@ public class ArrayBookAdapter extends ArrayAdapter<Book> {
 		tvPublisher.setText(book.publisher);
 		tvOffer.setText(book.offer);
 		
-		/*
+		
 		if (1 == position % 2) {
 			tvPublisher.setBackgroundColor(Color.LTGRAY);
 			tvOffer.setBackgroundColor(Color.LTGRAY);
 		}
-		*/
+		
 		
 		return bookView;
 	}
