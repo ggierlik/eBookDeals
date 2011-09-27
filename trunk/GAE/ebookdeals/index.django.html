@@ -54,7 +54,7 @@
 					{% for book in books %}
 						<tr>
 							<td>{{ book.publisher }}</td>
-							<td><a href="{{ book.link }}" target="_blank" title="Check details..." onclick="_gaq.push(['_trackEvent', 'click', 'details', '{{ book.publisher }}']);">{{ book.desc }}</a></td>
+							<td><a href="{{ book.link }}" target="_blank" title="Check details..." onclick="_gaq.push([&quot;_trackEvent&quot;, &quot;click&quot;, &quot;details&quot;, &quot;{{ book.publisher }}&quot;])">{{ book.desc }}</a></td>
 						</tr>
 					{% endfor %}
 				</table>
