@@ -54,7 +54,7 @@
 					{% for book in books %}
 						<tr>
 							<td>{{ book.publisher }}</td>
-							<td><a href="{{ book.link }}" target="_blank" title="Check details...">{{ book.desc }}</a></td>
+							<td><a href="{{ book.link }}" target="_blank" title="Check details..." onclick="_gaq.push(['_trackEvent', 'click', 'details', '{{ book.publisher }}']);">{{ book.desc }}</a></td>
 						</tr>
 					{% endfor %}
 				</table>
@@ -67,6 +67,7 @@
 						<!-- li>During weekends expiered Manning Books can be shown &ndash; will be fixed.</li -->
 						<li>Not responsible for titles or prices displayed. Please check appropriate site before purchasing.</li>
 						<li>Data pulled from respective vendor sites.</li>
+						<li><a href="/eBookDeals.apk" onclick="_gaq.push(['_trackEvent', 'click', 'download', 'android']);" title="A simple appliction which shows ebook deals on Android powered phone or tablet. Another side-project :).">eBookDeals Android app</a> &ndash; in early beta.</li>
 					</ul>
 				</div>
 
@@ -91,6 +92,8 @@
 					<p>
 						Enjoy and happy shopping.
 					</p>
+
+						<h6 class="revision">$Revision$</h6>
 				</div>
 			</div>
 		</div>

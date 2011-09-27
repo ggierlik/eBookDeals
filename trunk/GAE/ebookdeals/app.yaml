@@ -27,6 +27,10 @@ handlers:
 - url: /deals
   script: deals_html.py
  
+- url: /eBookDeals.apk
+  static_files: static/eBookDeals.apk
+  upload: static/eBookDeals.apk
+  
 - url: /_ah/mail/manning\@ebook-deals\.appspotmail\.com
   script: handle_incoming_manning.py
 #  login: admin
