@@ -27,7 +27,7 @@ handlers:
 - url: /deals
   script: deals_html.py
  
-- url: /_ah/mail/manning\@ebook-deals\.appspotmail\.com
+- url: /_ah/mail/manning@ebook-deals\.appspot\.com
   script: handle_incoming_manning.py
 #  login: admin
 

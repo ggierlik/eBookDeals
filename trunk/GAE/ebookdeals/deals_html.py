@@ -10,10 +10,13 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 import book
+import logging
 
 class MainPage(webapp.RequestHandler):
     def get(self):
 
+        logging.info("Request income...")
+        
         dte, books = book.read_books()
         delta = datetime.datetime.now() - dte
 

@@ -9,9 +9,23 @@ class LogSenderHandler(InboundMailHandler):
 
         logging.info("Subject: " + mail_message.subject)
 
-        plaintext_bodies = message.bodies('text/plain')
-        html_bodies = message.bodies('text/html')
+        plaintext = mail_message.bodies('text/plain')
+        
+        for text in plaintext:
+            textmsg = text[1].decode()
+            logging.info("Body is:\n%s" % textmsg)
+             
+        html_bodies = mail_message.bodies('text/html')
 
         for content_type, body in html_bodies:
             decoded_html = body.decode()
-            logging.info(decoded_html)
+            logging.info("HTML is:\n%s" % decoded_html)
+
+application = webapp.WSGIApplication([LogSenderHandler.mapping()], debug=True)
+
+def main():
+    run_wsgi_app(application)
+ 
+if __name__ == '__main__':
+    main()
+    
