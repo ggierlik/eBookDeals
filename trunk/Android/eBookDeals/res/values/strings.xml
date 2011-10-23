@@ -5,4 +5,6 @@
 <string name="feed_updater_started">Sync started</string>
 <string name="feed_updater_finished">Sync finished</string>
 <string name="feed_updater_label">Sync</string>
+<string name="no_deals">Sorry, there were no deals found :(</string>
+<string name="deals_found">Tap on deal to go to publisher website....</string>
 </resources>
