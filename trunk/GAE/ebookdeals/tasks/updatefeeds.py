@@ -1,13 +1,13 @@
-import logging
-import urllib
-from xml.etree.ElementTree import parse
+#from xml.etree.ElementTree import parse
+import book
 import feedparser
+import logging
 import sys
+import update
+#import urllib
 
 #import datetime
 
-import book
-import update
 
 #TODO: move function to class
 #TODO: move every publisher to separate cron task
@@ -36,7 +36,7 @@ def get_oreilly_rss_feed(publisher, url):
 def get_apress_rss_feed():
     publisher = 'Apress'
 
-    logging.info("parssing %s", publisher)
+    logging.info("parsing %s", publisher)
 
     f = feedparser.parse(APRESS_FEED_RSS)
 
@@ -78,7 +78,7 @@ def get_manning_rss_feed():
 def get_informit_rss_feed():
     publisher = "informIT"
 
-    logging.info("parssing %s", publisher)
+    logging.info("parsing %s", publisher)
 
     f = feedparser.parse(INFORMIT_FEED_RSS)
 

@@ -3,6 +3,7 @@ import datetime
 from google.appengine.ext import db
 
 import update
+#import string
 
 class Book(db.Model):
     publisher = db.StringProperty()
@@ -12,14 +13,16 @@ class Book(db.Model):
     date = db.DateTimeProperty(auto_now_add=True)
 
     def to_dict(self):
-       return dict([(p, unicode(getattr(self, p))) for p in self.properties()])
+        return dict([(p, unicode(getattr(self, p))) for p in self.properties()]) #@IndentOk
 
 def get_book(publisher, title, desc, link):
     book = Book()
 
     book.publisher = publisher
-    book.title = title
-    book.desc = desc
+    removed = dict.fromkeys(map(ord, u"\r\t\n"), u" ")
+    
+    book.title = title.translate(removed)
+    book.desc = desc.translate(removed)
     book.link = link
 
     return book

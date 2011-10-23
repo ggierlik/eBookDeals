@@ -1,16 +1,12 @@
-import cgi
-
-import os
-
-import datetime
-
-from google.appengine.ext.webapp import template
-from google.appengine.api import users
+#from google.appengine.api import users
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
-
 import book
+#import cgi
+import datetime
 import logging
+import os
 
 class MainPage(webapp.RequestHandler):
     def get(self):
