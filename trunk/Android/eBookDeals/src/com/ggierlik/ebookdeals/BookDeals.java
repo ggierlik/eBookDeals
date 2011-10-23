@@ -1,7 +1,6 @@
 package com.ggierlik.ebookdeals;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -13,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -24,19 +23,21 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class BookDeals extends ListActivity {
+public class BookDeals extends Activity {
 	// private PendingIntent alarmSender;
 
 	private static final String TAG = "BookDeals";
 
 	private List<Book> books; // = new ArrayList<Book>();
 	private ArrayBookAdapter arrayBookAdapter;
-	
+
 	private ListView lv;
 	private ProgressBar pb;
-	
+	private TextView msg;
+
 	private final String PATH = "http://ebook-deals.appspot.com/get_deals";
 
 	// private final String PATH = "http://10.0.2.2:8080/get_deals";
@@ -45,6 +46,7 @@ public class BookDeals extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
 		/*
 		 * books.add(new Book( "O'Reilly Media",
@@ -78,23 +80,29 @@ public class BookDeals extends ListActivity {
 		// books);
 		// }
 
-		Log.d(TAG, "Creating books list...");
+		//Log.d(TAG, "Creating books list...");
 		books = new ArrayList<Book>();
-		
-		Log.d(TAG, "Creating books adapter...");
-		arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item, books);
 
-		Log.d(TAG, "Finding pb...");
+		//Log.d(TAG, "Creating books adapter...");
+		arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item,
+				books);
+
+		//Log.d(TAG, "Finding pb...");
 		pb = (ProgressBar) findViewById(R.id.pbHorizontal);
 		if (pb == null) {
-			Log.e(TAG, "pb is null");
+			//Log.e(TAG, "pb is null");
 		}
 		
-		Log.d(TAG, "Managing lv...");
-		lv = getListView();
+		msg = (TextView) findViewById(R.id.loading);
+
+		//Log.d(TAG, "Managing lv...");
+
+		// lv = getListView();
+		lv = (ListView) findViewById(R.id.list);
+
 		lv.setTextFilterEnabled(false);
 		lv.setAdapter(arrayBookAdapter);
-		
+
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -107,7 +115,7 @@ public class BookDeals extends ListActivity {
 					startActivity(intent);
 
 				} catch (Exception ex) {
-					Log.e(TAG, ex.getMessage());
+					// //Log.e(TAG, ex.getMessage());
 					Toast.makeText(getApplicationContext(),
 							position + "/" + id + "\n", Toast.LENGTH_SHORT)
 							.show();
@@ -149,69 +157,67 @@ public class BookDeals extends ListActivity {
 	 * books.add(new Book( b.getString("publisher"), b.getString("title"),
 	 * b.getString("link"))); }
 	 * 
-	 * result = true; } catch (IOException ioEx) { Log.e(TAG,
+	 * result = true; } catch (IOException ioEx) { //Log.e(TAG,
 	 * ioEx.getMessage()); result = false; } catch (JSONException jsonEx) {
-	 * Log.e(TAG, jsonEx.getMessage()); result = false; } catch (Exception ex) {
-	 * Log.e(TAG, ex.getMessage()); result = false; }
+	 * //Log.e(TAG, jsonEx.getMessage()); result = false; } catch (Exception ex) {
+	 * //Log.e(TAG, ex.getMessage()); result = false; }
 	 * 
 	 * return result; }
 	 */
 
-	// based on http://www.android4devs.pl/2011/08/asynctask-asynchroniczne-wykonywanie-czasochlonnych-zadan/
+	// based on
+	// http://www.android4devs.pl/2011/08/asynctask-asynchroniczne-wykonywanie-czasochlonnych-zadan/
 	private class BooksLoaderTask extends AsyncTask<Void, Integer, Void> {
-		
+
 		private static final String TAG = "BooksLoaderTask";
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			
-			Log.d(TAG, "preExecute starts...");
-			
+
+			//Log.d(TAG, "preExecute starts...");
+
 			if (pb != null) {
-			pb.setVisibility(View.VISIBLE);
-			pb.setProgress(0);
+				pb.setVisibility(View.VISIBLE);
+				pb.setProgress(0);
+			} else {
+				//Log.e(TAG, "pb is null");
 			}
-			else {
-				Log.e(TAG, "pb is null");
-			}
-			
-			Log.d(TAG, "preExecute ends...");
+
+			//Log.d(TAG, "preExecute ends...");
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			Log.d(TAG, "doInBackground stats...");
-			
+			//Log.d(TAG, "doInBackground stats...");
+
 			JSONArray jsonBooks = loadBooks();
 
-			Log.d(TAG, "Books have been read");
-			
+			//Log.d(TAG, "Books have been read");
+
 			if (jsonBooks != null) {
-				Log.d(TAG, "and there are some... :)");
-								
+				//Log.d(TAG, "and there are some... :)");
+
 				int len = jsonBooks.length();
 
 				for (int i = 0; i < len; i++) {
 					try {
 						JSONObject b = jsonBooks.getJSONObject(i);
 
-						books.add(new Book(b.getString("publisher"), 
-								b.getString("title"), 
-								b.getString("link")));
-						
-						publishProgress(i/len);
-						
-					} 
-					catch (JSONException ex) {
-						Log.e(TAG, ex.getMessage());
+						books.add(new Book(b.getString("publisher"), b
+								.getString("title"), b.getString("link")));
+
+						publishProgress(i / len);
+
+					} catch (JSONException ex) {
+						//Log.e(TAG, ex.getMessage());
 					}
 				}
 			}
 
-			Log.d(TAG, "doInBackground ends...");
-			
+			//Log.d(TAG, "doInBackground ends...");
+
 			return null;
 		}
 
@@ -219,39 +225,42 @@ public class BookDeals extends ListActivity {
 		protected void onProgressUpdate(Integer... values) {
 			super.onProgressUpdate(values);
 			if (pb != null) {
-			pb.setProgress(values[0]);
+				pb.setProgress(values[0]);
 			}
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-			
-			Log.d(TAG, "onPostExecute stats...");
-			
+
+			//Log.d(TAG, "onPostExecute stats...");
+
 			super.onPostExecute(result);
 			if (pb != null) {
-			pb.setVisibility(View.GONE);
+				pb.setVisibility(View.GONE);
 			}
-			lv.invalidateViews();
+			msg.setVisibility(View.GONE);
 			
-			Log.d(TAG, "onPostExecute ends...");
+			lv.invalidateViews();
+
+			//Log.d(TAG, "onPostExecute ends...");
 		}
 
 		private JSONArray loadBooks() {
 			JSONArray jsonBooks = null;
 
-			Log.d(TAG, "Loading books...");
-			
+			//Log.d(TAG, "Loading books...");
+
 			try {
 				URL url = new URL(PATH);
 
-				Log.d(TAG, "opening connection...");
+				//Log.d(TAG, "opening connection...");
 				URLConnection conn = url.openConnection();
-				
-				Log.d(TAG, "reading data...");
+
+				//Log.d(TAG, "reading data...");
 				InputStream is = conn.getInputStream();
 
-				BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+				BufferedReader r = new BufferedReader(new InputStreamReader(is,
+						"UTF-8"));
 
 				StringBuilder jsonInputBuffer = new StringBuilder();
 
@@ -261,13 +270,13 @@ public class BookDeals extends ListActivity {
 					jsonInputBuffer.append(line);
 				}
 
-				Log.d(TAG, "convering to JSON...");
+				//Log.d(TAG, "converting to JSON...");
 				String jsonInput = jsonInputBuffer.toString();
 
 				jsonBooks = new JSONArray(jsonInput);
-				
+
 			} catch (Exception ex) {
-				Log.e(TAG, ex.getMessage());
+				//Log.e(TAG, ex.getMessage());
 			}
 
 			return jsonBooks;
@@ -276,7 +285,7 @@ public class BookDeals extends ListActivity {
 	}
 
 	private void loadBooksAsynchronously() {
-		Log.d(TAG, "Starting loading books asynchronously...");
+		//Log.d(TAG, "Starting loading books asynchronously...");
 		new BooksLoaderTask().execute();
 	}
 

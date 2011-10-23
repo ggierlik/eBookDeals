@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:orientation="vertical" >
+
+    <!-- style="?android:attr/progressBarStyle" -->
+	<!-- style="@android:style/Widget.ProgressBar.Small"  -->
+
     <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_height="wrap_content"
+        android:id="@+id/pbHorizontal"
         android:layout_width="fill_parent"
-        android:id="@+id/pbHorizontal"/>
-        <!-- android:visibility="invisible"/ -->
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <!-- android:id="@android:id/list" -->
+    <!-- android:id="@+id/list" -->
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false" />
+
+    <TextView
+        android:id="@+id/loading"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/loading" />
+
+    <!--
+          TextView android:id="@android:id/empty"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="#FF0000"
+	    android:text="No deals found"/
+    -->
+
 </LinearLayout>
