@@ -4,17 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- style="?android:attr/progressBarStyle" -->
-	<!-- style="@android:style/Widget.ProgressBar.Small"  -->
-
     <ProgressBar
         android:id="@+id/pbHorizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:paddingTop="10dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
         android:visibility="invisible" />
-
-    <!-- android:id="@android:id/list" -->
-    <!-- android:id="@+id/list" -->
 
     <ListView
         android:id="@+id/list"
@@ -28,13 +26,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/loading" />
-
-    <!--
-          TextView android:id="@android:id/empty"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:background="#FF0000"
-	    android:text="No deals found"/
-    -->
 
 </LinearLayout>

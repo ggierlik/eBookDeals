@@ -40,8 +40,8 @@ public class ArrayBookAdapter extends ArrayAdapter<Book> {
 		TextView tvPublisher = (TextView)bookView.findViewById(R.id.tvPublisher);
 		TextView tvOffer = (TextView)bookView.findViewById(R.id.tvOffer);
 		
-		tvPublisher.setText(book.publisher);
-		tvOffer.setText(book.offer);
+		tvPublisher.setText(book.getPublisher());
+		tvOffer.setText(book.getOffer());
 		
 		
 		if (1 == position % 2) {

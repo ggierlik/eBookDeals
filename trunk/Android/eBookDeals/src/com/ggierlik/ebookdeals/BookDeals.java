@@ -20,7 +20,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -90,21 +90,21 @@ public class BookDeals extends Activity {
 		// arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item,
 		// books);
 		// }
-		
-		Log.d(TAG, "Finding pb...");
+
+		//Log.d(TAG, "Finding pb...");
 		pb = (ProgressBar) findViewById(R.id.pbHorizontal);
-		
+
 		if (pb == null) {
-			Log.e(TAG, "pb is null");
+			//Log.e(TAG, "pb is null");
 		}
 
 		msg = (TextView) findViewById(R.id.loading);
 
 		if (msg == null) {
-			Log.e(TAG, "msg is null");
-		
+			//Log.e(TAG, "msg is null");
+
 		}
-		Log.d(TAG, "Creating books list...");
+		//Log.d(TAG, "Creating books list...");
 
 		Serializable item = null;
 
@@ -115,12 +115,11 @@ public class BookDeals extends Activity {
 		if (item != null) {
 			books = (ArrayList<Book>) item;
 
-			Log.d(TAG, String.format("Found %d books in saved state",
-					books.size()));
-			
-			//if (pb != null) {
-				pb.setVisibility(View.GONE);
-			//}
+			//Log.d(TAG, String.format("Found %d books in saved state", books.size()));
+
+			// if (pb != null) {
+			pb.setVisibility(View.GONE);
+			// }
 
 			if (msg != null) {
 				msg.setText(R.string.deals_found);
@@ -128,14 +127,14 @@ public class BookDeals extends Activity {
 
 		} else {
 			books = new ArrayList<Book>();
-			Log.d(TAG, "New books list created");
+			//Log.d(TAG, "New books list created");
 		}
 
-		Log.d(TAG, "Creating books adapter...");
+		//Log.d(TAG, "Creating books adapter...");
 		arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item,
 				books);
 
-		Log.d(TAG, "Managing lv...");
+		//Log.d(TAG, "Managing lv...");
 
 		lv = (ListView) findViewById(R.id.list);
 
@@ -148,13 +147,13 @@ public class BookDeals extends Activity {
 
 				Uri uri;
 				try {
-					uri = Uri.parse(books.get(position).url);
+					uri = Uri.parse(books.get(position).getUrl());
 					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
 					startActivity(intent);
 
 				} catch (Exception ex) {
-					// Log.e(TAG, ex.getMessage());
+					// //Log.e(TAG, ex.getMessage());
 					Toast.makeText(getApplicationContext(),
 							position + "/" + id + "\n", Toast.LENGTH_SHORT)
 							.show();
@@ -198,10 +197,10 @@ public class BookDeals extends Activity {
 	 * books.add(new Book( b.getString("publisher"), b.getString("title"),
 	 * b.getString("link"))); }
 	 * 
-	 * result = true; } catch (IOException ioEx) { Log.e(TAG,
+	 * result = true; } catch (IOException ioEx) { //Log.e(TAG,
 	 * ioEx.getMessage()); result = false; } catch (JSONException jsonEx) {
-	 * Log.e(TAG, jsonEx.getMessage()); result = false; } catch (Exception ex) {
-	 * Log.e(TAG, ex.getMessage()); result = false; }
+	 * //Log.e(TAG, jsonEx.getMessage()); result = false; } catch (Exception ex) {
+	 * //Log.e(TAG, ex.getMessage()); result = false; }
 	 * 
 	 * return result; }
 	 */
@@ -228,25 +227,25 @@ public class BookDeals extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 
-			Log.d(TAG, "preExecute starts...");
+			//Log.d(TAG, "preExecute starts...");
 
-//			if (pb != null) {
-				pb.setVisibility(View.VISIBLE);
-				pb.setProgress(0);
-//			} else {
-//				Log.e(TAG, "pb is null");
-//			}
+			// if (pb != null) {
+			pb.setVisibility(View.VISIBLE);
+			pb.setProgress(0);
+			// } else {
+			// //Log.e(TAG, "pb is null");
+			// }
 
 			msg.setTextColor(Color.WHITE);
 			msg.setText(R.string.loading);
 
-			Log.d(TAG, "preExecute ends...");
+			//Log.d(TAG, "preExecute ends...");
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			Log.d(TAG, "doInBackground stats...");
+			//Log.d(TAG, "doInBackground stats...");
 
 			JSONArray jsonBooks = loadBooks();
 
@@ -255,12 +254,12 @@ public class BookDeals extends Activity {
 
 			editor.putLong("LastUpdate", (new Date()).getTime());
 
-			Log.d(TAG, "Books have been read");
+			//Log.d(TAG, "Books have been read");
 
 			books.clear();
 
 			if (jsonBooks != null) {
-				Log.d(TAG, "and there are some... :)");
+				//Log.d(TAG, "and there are some... :)");
 
 				int len = jsonBooks.length();
 
@@ -279,14 +278,14 @@ public class BookDeals extends Activity {
 						publishProgress(i / len);
 
 					} catch (JSONException ex) {
-						Log.e(TAG, ex.getMessage());
+						//Log.e(TAG, ex.getMessage());
 					}
 				}
 			}
 
 			editor.commit();
 
-			Log.d(TAG, "doInBackground ends...");
+			//Log.d(TAG, "doInBackground ends...");
 
 			return null;
 		}
@@ -302,7 +301,7 @@ public class BookDeals extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 
-			Log.d(TAG, "onPostExecute stats...");
+			//Log.d(TAG, "onPostExecute stats...");
 
 			super.onPostExecute(result);
 			if (pb != null) {
@@ -319,21 +318,21 @@ public class BookDeals extends Activity {
 
 			lv.invalidateViews();
 
-			Log.d(TAG, "onPostExecute ends...");
+			//Log.d(TAG, "onPostExecute ends...");
 		}
 
 		private JSONArray loadBooks() {
 			JSONArray jsonBooks = null;
 
-			Log.d(TAG, "Loading books...");
+			//Log.d(TAG, "Loading books...");
 
 			try {
 				URL url = new URL(PATH);
 
-				Log.d(TAG, "opening connection...");
+				//Log.d(TAG, "opening connection...");
 				URLConnection conn = url.openConnection();
 
-				Log.d(TAG, "reading data...");
+				//Log.d(TAG, "reading data...");
 				InputStream is = conn.getInputStream();
 
 				BufferedReader r = new BufferedReader(new InputStreamReader(is,
@@ -347,13 +346,13 @@ public class BookDeals extends Activity {
 					jsonInputBuffer.append(line);
 				}
 
-				Log.d(TAG, "converting to JSON...");
+				//Log.d(TAG, "converting to JSON...");
 				String jsonInput = jsonInputBuffer.toString();
 
 				jsonBooks = new JSONArray(jsonInput);
 
 			} catch (Exception ex) {
-				Log.e(TAG, ex.getMessage());
+				//Log.e(TAG, ex.getMessage());
 			}
 
 			return jsonBooks;
@@ -362,7 +361,7 @@ public class BookDeals extends Activity {
 	}
 
 	private void loadBooksAsynchronously() {
-		Log.d(TAG, "Starting loading books asynchronously...");
+		//Log.d(TAG, "Starting loading books asynchronously...");
 		new BooksLoaderTask().execute();
 	}
 
