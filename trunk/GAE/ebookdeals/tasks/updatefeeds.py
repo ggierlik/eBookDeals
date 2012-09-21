@@ -16,7 +16,8 @@ import update
 
 OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
 MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
-APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
+#APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
+APRESS_FEED_RSS = 'http://www.apress.com/index.php/dailydeals/index/rss'
 MANNING_BOOKS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/24914741.rss'
 INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
 
@@ -42,38 +43,37 @@ def get_apress_rss_feed():
 
     logging.info("PARSED")
 
-    return book.get_book(publisher, f.entries[0].title, f.entries[0].summary, 'http://apress.com/info/dailydeal')
+    return book.get_book(publisher, f.entries[0].title, f.entries[0].description, f.entries[0].link)
 
-"""
+
 def get_manning_rss_feed():
     publisher = 'Manning Books'
 
     f = feedparser.parse(MANNING_BOOKS_FEED_RSS)
 
-    print "PARSED"
+#    print "PARSED"
 
-    print "items: %d" % (len(f.entries), )
+#    print "items: %d" % (len(f.entries), )
 
     j = 1
 
     for item in f.entries:
-        print "%d" % (j,)
-        print "title: %s" % (item.title,)
+#        print "%d" % (j,)
+#        print "title: %s" % (item.title,)
 
         title = item.title
 
         i = title.find('Use code dotd')
-        print "i: %d" % (i, )
+#       print "i: %d" % (i, )
         if i > 0:
             i = title.find('(http')
             j = title.find(')', i)
-            print "(%d, %d)" % (i, j, )
+#            print "(%d, %d)" % (i, j, )
             if j < i:
                 j = i
             link = title[i+1:j]
-            print "link: %s %d %d" % (link, i, j)
+#            print "link: %s %d %d" % (link, i, j)
             return book.get_book(publisher, title, item.summary, link)
-"""
 
 def get_informit_rss_feed():
     publisher = "informIT"
@@ -127,30 +127,28 @@ except:
     logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
 
 try:
-    #print "BEGIN APRESS"
+#    print "BEGIN APRESS"
 
     ebook = get_apress_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-    #print "APRESS OK"
+#    print "APRESS OK"
 except:
     logging.exception("APRESS ERROR:", sys.exc_info()[0])
 
-"""
 try:
-    print "BEGIN MANNING"
+#    print "BEGIN MANNING"
 
     ebook = get_manning_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-    print "MANNING OK"
+#    print "MANNING OK"
 except:
-    print "MANNING ERROR:", sys.exc_info()[0]
-"""
+    logging.exception("MANNING ERROR:", sys.exc_info()[0])
 
 try:
     #print "BEGIN INFORMIT"

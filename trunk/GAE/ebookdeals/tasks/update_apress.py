@@ -7,12 +7,13 @@ import sys
 import book
 import update
 
-APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
+APRESS_FEED_RSS = 'http://www.apress.com/index.php/dailydeals/index/rss'
+
 PUBLISHER = 'Apress'
 
 def get_apress_rss_feed():
     f = feedparser.parse(APRESS_FEED_RSS)
-    return book.get_book(publisher, f.entries[0].title, f.entries[0].summary, 'http://apress.com/info/dailydeal')
+    return book.get_book(publisher, f.entries[0].title, f.entries[0].description, f.entries[0].link)
 
 try:
     logging.info("BEGIN APRESS")
