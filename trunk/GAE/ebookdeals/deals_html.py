@@ -1,14 +1,15 @@
 #from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+import webapp2
 import book
-#import cgi
 import datetime
 import logging
 import os
+import jinja2
 
-class MainPage(webapp.RequestHandler):
+jinja_environment = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+class MainPage(webapp2.RequestHandler):
     def get(self):
 
         logging.info("Request income...")
@@ -31,16 +32,14 @@ class MainPage(webapp.RequestHandler):
             'time_label': label,
         }
 
-        path = os.path.join(os.path.dirname(__file__), 'index.django.html')
-        self.response.out.write(template.render(path, template_values))
+        template = jinja_environment.get_template('index.django.html')
+        self.response.out.write(template.render(template_values))
 
 
-application = webapp.WSGIApplication(
-    [('/', MainPage)],
-    debug = True)
+app = webapp2.WSGIApplication([('/', MainPage)], debug = True)
 
-def main():
-    run_wsgi_app(application)
+# def main():
+#     run_wsgi_app(application)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

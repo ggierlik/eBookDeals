@@ -1,13 +1,9 @@
-#from xml.etree.ElementTree import parse
 import book
 import feedparser
 import logging
 import sys
 import update
-#import urllib
-
-#import datetime
-
+# import datetime
 
 #TODO: move function to class
 #TODO: move every publisher to separate cron task
@@ -74,6 +70,8 @@ def get_manning_rss_feed():
             link = title[i+1:j]
 #            print "link: %s %d %d" % (link, i, j)
             return book.get_book(publisher, title, item.summary, link)
+#       elif i = title.find('conta.cc') > 0:
+            
 
 def get_informit_rss_feed():
     publisher = "informIT"
@@ -98,8 +96,8 @@ def get_informit_rss_feed():
 #except:
 #    print "CLEAR:", sys.exc_info()[0]
 
-#dte = datetime.date.today()
-#print "Start: " + dte
+# dte = datetime.date.today()
+# print "Start: " + str(dte)
 
 update.update("ALL", True)
 
@@ -162,5 +160,5 @@ except:
     logging.exception("INFORMIT ERROR:", sys.exc_info()[0])
 
 
-#dte = datetime.date.today()
-#print "End: " + dte
+# dte = datetime.date.today()
+# print "End: " + str(dte)
