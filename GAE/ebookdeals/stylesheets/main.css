@@ -131,8 +131,16 @@ div#about h2 {
 	font-family: sans-serif;
 }
 
-div#about p {
+div#about p, div#about a {
 	font-size: 12px;
+}
+
+div#about a {
+    color: aqua;
+}
+
+div#about a:visited {
+    color: skyblue;
 }
 
 h6.revision {
