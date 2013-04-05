@@ -29,17 +29,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class BookDeals extends Activity {
 	// private PendingIntent alarmSender;
 
-	private static final String TAG = "BookDeals";
+//	private static final String TAG = "BookDeals";
 
 	// synced with updatefeeds.py for GAE part
-	private static final String PUBLISHER_APRESS = "Apress";
-	private static final String PUBLISHER_MSPRESS = "Microsoft Press";
-	private static final String PUBLISHER_OREILLY = "O'Reilly Media";
-	private static final String PUBLISHER_INFORMIT = "informIT";
-	private static final String PUBLISHER_MANNING = "Manning Books";
+//	private static final String PUBLISHER_APRESS = "Apress";
+//	private static final String PUBLISHER_MSPRESS = "Microsoft Press";
+//	private static final String PUBLISHER_OREILLY = "O'Reilly Media";
+//	private static final String PUBLISHER_INFORMIT = "informIT";
+//	private static final String PUBLISHER_MANNING = "Manning Books";
 
 	private ArrayList<Book> books; // = new ArrayList<Book>();
 	private ArrayBookAdapter arrayBookAdapter;
@@ -78,18 +79,6 @@ public class BookDeals extends Activity {
 		 * "$9.99 eBook Deal of the Day :: Programming in Objective-C 2.0, 2nd Edition by Stephen G. Kochan"
 		 * , "http://www.informit.com/deals/"));
 		 */
-
-		// set alarm to call deal feed update as service
-		// alarmSender = PendingIntent.getService(BookDeals.this, 0, new
-		// Intent(BookDeals.this, FeedUpdaterService.class), 0);
-		// AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-		// am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-		// SystemClock.elapsedRealtime(), 30*1000, alarmSender);
-
-		// if (loadBooks()) {
-		// arrayBookAdapter = new ArrayBookAdapter(this, R.layout.booklist_item,
-		// books);
-		// }
 
 		//Log.d(TAG, "Finding pb...");
 		pb = (ProgressBar) findViewById(R.id.pbHorizontal);
@@ -165,45 +154,6 @@ public class BookDeals extends Activity {
 			loadBooksAsynchronously();
 		}
 	}
-
-	/*
-	 * private boolean loadBooks() {
-	 * 
-	 * boolean result = false;
-	 * 
-	 * try { URL url = new URL(PATH);
-	 * 
-	 * URLConnection conn = url.openConnection(); InputStream is =
-	 * conn.getInputStream();
-	 * 
-	 * BufferedReader r = new BufferedReader(new InputStreamReader(is,
-	 * "UTF-8"));
-	 * 
-	 * StringBuilder jsonInputBuffer = new StringBuilder();
-	 * 
-	 * String line;
-	 * 
-	 * while ((line = r.readLine()) != null) { jsonInputBuffer.append(line); }
-	 * 
-	 * String jsonInput = jsonInputBuffer.toString();
-	 * 
-	 * JSONArray jsonBooks = new JSONArray(jsonInput);
-	 * 
-	 * int len = jsonBooks.length();
-	 * 
-	 * for (int i = 0; i < len; i++) { JSONObject b =
-	 * jsonBooks.getJSONObject(i);
-	 * 
-	 * books.add(new Book( b.getString("publisher"), b.getString("title"),
-	 * b.getString("link"))); }
-	 * 
-	 * result = true; } catch (IOException ioEx) { //Log.e(TAG,
-	 * ioEx.getMessage()); result = false; } catch (JSONException jsonEx) {
-	 * //Log.e(TAG, jsonEx.getMessage()); result = false; } catch (Exception ex) {
-	 * //Log.e(TAG, ex.getMessage()); result = false; }
-	 * 
-	 * return result; }
-	 */
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
