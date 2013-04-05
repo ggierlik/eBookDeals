@@ -1,0 +1,5 @@
+cron:
+- description: update RSS feeds
+  url: /_updatefeeds
+  schedule: every 90 minutes
+

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="google-site-verification" content="UYci0giwvSbxeT6F_gKppostT_dWh0tc_4sEEa2e5t8">
+		<title>ebooks for software developers offered as deal of the day</title>
+		<meta name="description" content="List of programming ebooks offered as deal of the day">
+		<meta name="keywords" content="programming ebooks, programming books, software ebooks, cheap programming books, discounted programming books">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+		<link type="text/css" rel="stylesheet" href="/stylesheets/main.css">
+		<!--[if lt IE 7]>
+		<style>
+		div#content {
+			height: 100%;
+		}
+		</style>
+		<![endif]-->
+		<!--[if IE]>
+		<style>
+		table#deals td, table#deals th {
+			border-bottom: 1px dotted #333;
+		}
+		</style>
+		<![endif]-->
+		<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-19930283-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+		</script>
+	</head>
+
+	<body>
+		<div id="content">
+			<div id="header">
+				<!-- img class="logo" src="/images/ebookdeals_logo.png" alt="eBookDeals logo"/ -->
+				<h1 class="header">ebooks deals for software developers</h1>
+			</div>
+
+			<div id="body">
+			{% if books %}
+				<table id="deals" summary="List of ebooks deals for software developers">
+					<tr>
+						<th style="width: 10em">Publisher</th>
+						<th>Deal description</th>
+					</tr>
+					{% for book in books %}
+						<tr>
+							<td>{{ book.publisher }}</td>
+							<td><a href="{{ book.link }}" target="_blank" title="Check details..." onclick="_gaq.push([&quot;_trackEvent&quot;, &quot;click&quot;, &quot;details&quot;, &quot;{{ book.publisher }}&quot;])">{{ book.desc }}</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+				<p class="info">List of ebooks deals for software developers. Last updated {{ time_label }} ago.</p>
+
+				<div id="notes">
+					<h3>Notes:</h3>
+					<ul>
+						<li>Deals shown above can be expired now.</li>
+						<!-- li>During weekends expired Manning Books can be shown &ndash; will be fixed.</li -->
+						<li>Not responsible for titles or prices displayed. Please check appropriate site before purchasing.</li>
+						<li>Data pulled from respective vendor sites.</li>
+						<li><a href="http://dl.dropbox.com/u/9290999/ebookdeals/eBookDeals.apk" onclick="_gaq.push(['_trackEvent', 'click', 'download', 'android']);" title="A simple appliction which shows ebook deals on Android powered phone or tablet. Another side-project :).&#13;Download from Dropbox.&#13;For now the Android app can start, download and show list of ebook deals.">eBookDeals Android application</a> &ndash; in early beta.</li>
+					</ul>
+
+					<h3>To do:</h3>
+					<ul>
+						<li>Android: Add background checks for deals with notifications about new ones.</li>
+						<li>Android: Add subscriptions to deals (notification when book title/author matches user phrase).</li>
+					</ul>
+				</div>
+
+			{% else %}
+				<h2 class="sorry">Sorry. Nothing has been found for today :(</h2>
+			{% endif %}
+			</div>
+
+			<div id="footer">
+				<div id="about">
+					<h2>About this page</h2>
+					<p>
+						This app is side project, which goal is have a fun learning Python and Android a bit, see <em>Google App Engine</em> in action and do something useful.
+					</p>
+					<p>
+						Enjoy and happy shopping!
+					</p>
+
+					<h6 class="revision">$Revision$</h6>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
