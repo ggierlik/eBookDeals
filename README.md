@@ -15,6 +15,9 @@ Currently supports:
 The project contains two parts -- Google App Engine (GAE) app and simple Android app which displays the same results
 on photo screen. More details below.
 
+There are other similar projects:
+ * http://www.thriftebook.com/
+ * http://techbooksdotd.herokuapp.com/
 
 GAE
 ----
@@ -31,3 +34,4 @@ Simple Android app which shows daily deals for ebooks for software developers. S
 device with access to internet. 
 
 The app is provided as Eclipse project.
+
