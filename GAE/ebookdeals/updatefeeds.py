@@ -3,6 +3,8 @@ import feedparser
 import logging
 import sys
 import update
+import re
+
 # import datetime
 
 #TODO: move function to class
@@ -14,7 +16,7 @@ OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
 MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
 #APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
 APRESS_FEED_RSS = 'http://www.apress.com/index.php/dailydeals/index/rss'
-MANNING_BOOKS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/24914741.rss'
+MANNING_BOOKS_FEED_RSS = 'https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=manningbooks'
 INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
 
 def get_oreilly_rss_feed(publisher, url):
@@ -62,16 +64,14 @@ def get_manning_rss_feed():
         i = title.find('Use code dotd')
 #       print "i: %d" % (i, )
         if i > 0:
-            i = title.find('(http')
-            j = title.find(')', i)
+#            i = title.find('http')
+#            j = title.find('<', i)
 #            print "(%d, %d)" % (i, j, )
-            if j < i:
-                j = i
-            link = title[i+1:j]
-#            print "link: %s %d %d" % (link, i, j)
+#            if j < i:
+#                j = i
+            link = re.search("(?P<url>https?://[^\s]+)", title).group("url");
+#            print link
             return book.get_book(publisher, title, item.summary, link)
-#       elif i = title.find('conta.cc') > 0:
-            
 
 def get_informit_rss_feed():
     publisher = "informIT"
