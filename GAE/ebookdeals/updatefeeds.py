@@ -25,7 +25,6 @@ def get_oreilly_rss_feed(publisher, url):
     logging.info("PARSED")
 
     logging.info("title: %s" % (f.entries[0].title,))
-#    print "summary: %s" % (f.entries[0].summary,)
     logging.info("link: %s" % (f.entries[0].link,))
 
     return book.get_book(publisher, f.entries[0].title , f.entries[0].title, f.entries[0].link)
@@ -45,31 +44,28 @@ def get_apress_rss_feed():
 
 def get_manning_rss_feed():
     publisher = 'Manning Books'
+    logging.info("parsing %s", publisher)
 
     f = feedparser.parse(MANNING_BOOKS_FEED_RSS)
 
-#    print "PARSED"
-
-#    print "items: %d" % (len(f.entries), )
+    logging.info("PARSED")
 
     j = 1
 
     for item in f.entries:
-#        print "%d" % (j,)
-#        print "title: %s" % (item.title,)
 
         title = item.title
 
+        logging.info("title is %s", title)
+
         i = title.find('Use code dotd')
-#       print "i: %d" % (i, )
         if i > 0:
-#            i = title.find('http')
-#            j = title.find('<', i)
-#            print "(%d, %d)" % (i, j, )
-#            if j < i:
-#                j = i
+            logging.info('DOTD code found')
+
             link = re.search("(?P<url>https?://[^\s]+)", title).group("url");
-#            print link
+
+            logging.info('url to deal is %s', link);
+
             return book.get_book(publisher, title, item.summary, link)
 
 def get_informit_rss_feed():
@@ -98,20 +94,22 @@ def get_informit_rss_feed():
 # dte = datetime.date.today()
 # print "Start: " + str(dte)
 
+logging.getLogger().setLevel(logging.DEBUG)
+
 update.update("ALL", True)
 
 try:
-    #print "BEGIN O'REILLY"
+    logging.info("BEGIN O'REILLY")
 
     ebook = get_oreilly_rss_feed('O\'Reilly Media', OREILLY_FEED_RSS)
     ebook.put()
 
-    #print "O'REILLY OK"
+    logging.info("O'REILLY OK")
 except:
     logging.exception("O'REILLY ERROR:", sys.exc_info()[0])
 
 try:
-    #print "BEGIN MSPRESS"
+    logging.info("BEGIN MSPRESS")
 
     ebook = get_oreilly_rss_feed('Microsoft Press', MS_FEED_RSS)
 
@@ -119,42 +117,42 @@ try:
         ebook.put()
 
 
-    #print "MSPRESS OK"
+    logging.info("MSPRESS OK")
 except:
     logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
 
 try:
-#    print "BEGIN APRESS"
+    logging.info("BEGIN APRESS")
 
     ebook = get_apress_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-#    print "APRESS OK"
+    logging.info("APRESS OK")
 except:
     logging.exception("APRESS ERROR:", sys.exc_info()[0])
 
 try:
-#    print "BEGIN MANNING"
+    logging.info("BEGIN MANNING")
 
     ebook = get_manning_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-#    print "MANNING OK"
+    logging.info("MANNING OK")
 except:
     logging.exception("MANNING ERROR:", sys.exc_info()[0])
 
 try:
-    #print "BEGIN INFORMIT"
+    logging.info("BEGIN INFORMIT")
     ebook = get_informit_rss_feed()
 
     if ebook is not None:
         ebook.put()
 
-    #print "INFORMIT OK"
+    logging.info("INFORMIT OK")
 except:
     logging.exception("INFORMIT ERROR:", sys.exc_info()[0])
 
