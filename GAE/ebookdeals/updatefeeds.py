@@ -14,7 +14,6 @@ import re
 
 OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
 MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
-#APRESS_FEED_RSS = 'http://twitter.com/statuses/user_timeline/34233602.rss'
 APRESS_FEED_RSS = 'http://www.apress.com/index.php/dailydeals/index/rss'
 MANNING_BOOKS_FEED_RSS = 'https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=manningbooks'
 INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
@@ -88,7 +87,7 @@ def get_informit_rss_feed():
 #def clear_deals():
 #    books = book.Book.all()
 #    books.delete()
-#
+
 #try:
 #    print "Clear previous deals"
 #    clear_deals()
