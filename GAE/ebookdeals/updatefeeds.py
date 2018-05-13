@@ -12,23 +12,23 @@ import re
 #TODO: refactor these functions (i.e. logging statements)
 #TODO: it would be nice to have dictonary here
 
-OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
-MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
+# OREILLY_FEED_RSS = 'http://feeds.feedburner.com/oreilly/ebookdealoftheday'
+# MS_FEED_RSS = 'http://feeds.feedburner.com/oreilly/mspebookdeal'
 APRESS_FEED_RSS = 'http://www.apress.com/index.php/dailydeals/index/rss'
 MANNING_BOOKS_FEED_RSS = 'https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=manningbooks'
 INFORMIT_FEED_RSS = "http://www.informit.com/deals/deal_rss.aspx"
 
-def get_oreilly_rss_feed(publisher, url):
-
-    logging.info("parsing %s", publisher)
-    f = feedparser.parse(url)
-    logging.info("PARSED")
-
-    logging.info("title: %s" % (f.entries[0].title,))
-    logging.info("link: %s" % (f.entries[0].link,))
-
-    return book.get_book(publisher, f.entries[0].title , f.entries[0].title, f.entries[0].link)
-
+# def get_oreilly_rss_feed(publisher, url):
+# 
+#     logging.info("parsing %s", publisher)
+#     f = feedparser.parse(url)
+#     logging.info("PARSED")
+# 
+#     logging.info("title: %s" % (f.entries[0].title,))
+#     logging.info("link: %s" % (f.entries[0].link,))
+# 
+#     return book.get_book(publisher, f.entries[0].title , f.entries[0].title, f.entries[0].link)
+# 
 
 def get_apress_rss_feed():
     publisher = 'Apress'
@@ -98,29 +98,29 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 update.update("ALL", True)
 
-try:
-    logging.info("BEGIN O'REILLY")
-
-    ebook = get_oreilly_rss_feed('O\'Reilly Media', OREILLY_FEED_RSS)
-    ebook.put()
-
-    logging.info("O'REILLY OK")
-except:
-    logging.exception("O'REILLY ERROR:", sys.exc_info()[0])
-
-try:
-    logging.info("BEGIN MSPRESS")
-
-    ebook = get_oreilly_rss_feed('Microsoft Press', MS_FEED_RSS)
-
-    if ebook is not None:
-        ebook.put()
-
-
-    logging.info("MSPRESS OK")
-except:
-    logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
-
+# try:
+#     logging.info("BEGIN O'REILLY")
+# 
+#     ebook = get_oreilly_rss_feed('O\'Reilly Media', OREILLY_FEED_RSS)
+#     ebook.put()
+# 
+#     logging.info("O'REILLY OK")
+# except:
+#     logging.exception("O'REILLY ERROR:", sys.exc_info()[0])
+# 
+# try:
+#     logging.info("BEGIN MSPRESS")
+# 
+#     ebook = get_oreilly_rss_feed('Microsoft Press', MS_FEED_RSS)
+# 
+#     if ebook is not None:
+#         ebook.put()
+# 
+# 
+#     logging.info("MSPRESS OK")
+# except:
+#     logging.exception("MSPRESS ERROR:", sys.exc_info()[0])
+# 
 try:
     logging.info("BEGIN APRESS")
 
