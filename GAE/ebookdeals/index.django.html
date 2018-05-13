@@ -24,18 +24,6 @@
 		}
 		</style>
 		<![endif]-->
-		<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-19930283-1']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-
-		</script>
 	</head>
 
 	<body>
@@ -55,7 +43,7 @@
 					{% for book in books %}
 						<tr>
 							<td>{{ book.publisher }}</td>
-							<td><a href="{{ book.link }}" target="_blank" title="Check details..." onclick="_gaq.push([&quot;_trackEvent&quot;, &quot;click&quot;, &quot;details&quot;, &quot;{{ book.publisher }}&quot;])">{{ book.desc }}</a></td>
+							<td><a href="{{ book.link }}" target="_blank" title="Check details...">{{ book.desc }}</a></td>
 						</tr>
 					{% endfor %}
 				</table>
@@ -68,7 +56,7 @@
 						<!-- li>During weekends expired Manning Books can be shown &ndash; will be fixed.</li -->
 						<li>Not responsible for titles or prices displayed. Please check appropriate site before purchasing.</li>
 						<li>Data pulled from respective vendor sites.</li>
-						<li><a href="http://dl.dropbox.com/u/9290999/ebookdeals/eBookDeals.apk" onclick="_gaq.push(['_trackEvent', 'click', 'download', 'android']);" title="A simple appliction which shows ebook deals on Android powered phone or tablet. Another side-project :).&#13;Download from Dropbox.&#13;For now the Android app can start, download and show list of ebook deals.">eBookDeals Android application</a> &ndash; in early beta.</li>
+						<li><a href="http://dl.dropbox.com/u/9290999/ebookdeals/eBookDeals.apk" title="A simple appliction which shows ebook deals on Android powered phone or tablet. Another side-project :).&#13;Download from Dropbox.&#13;For now the Android app can start, download and show list of ebook deals.">eBookDeals Android application</a> &ndash; in early beta.</li>
 					</ul>
 
 					<h3>To do:</h3>
